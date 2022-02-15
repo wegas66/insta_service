@@ -1,0 +1,13 @@
+<div id="myModal" class="modal">
+	<div class="modal-content">
+		<div>
+			<span class="close">&times;</span>
+			<p>Вы точно хотите удалить аккаунт?</p>
+			<button class="btn1 btn-dark"><a href="{% url 'accounts:profile' %}" style="color: white;">Нет</a></button>
+			<form action="{% url 'accounts:delete_account' %}" method="post" style="display: contents;">
+				{% csrf_token %}
+				<button class="btn1 btn-danger" style="background: red; color: white;">Да</button>
+			</form>
+		</div>
+	</div>
+</div>

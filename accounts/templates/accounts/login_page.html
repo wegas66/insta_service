@@ -1,0 +1,31 @@
+{% extends 'global/base.html' %}
+{% load static %}
+{% block title %} {{ title }} {% endblock %}
+{% block extra_links %}
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
+{% endblock %}
+{% block body %}
+<body style="text-align: center; width: 100%;">
+	<div class="messages" style="margin: 0px;">
+		{% include 'global/include/messages/flash_messages.html' %}
+	</div>
+	<div style="font-size: larger; color: white; height: 50px;">
+		<h2 style="font-size: larger; margin-top: 10px;">Страница входа</h2>
+	</div>
+	<div id="clouds">
+		<div class="cloud x1"></div>
+		<div class="cloud x2"></div>
+		<div class="cloud x3"></div>
+		<div class="cloud x4"></div>
+		<div class="cloud x5"></div>
+	</div>
+	<div class="container">
+		<div>
+			{% include 'accounts/include/forms/login.html' %}
+		</div>
+	</div>
+</body>
+{% endblock %}

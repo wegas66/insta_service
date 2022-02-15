@@ -1,0 +1,78 @@
+<form class="form-horizontal" action="{% url 'accounts:update_profile' %}" method="post">
+	{% csrf_token %}
+	{% if form.city.errors %}
+		<ol style="color: red;">
+			{% for error in form.email.errors %}
+				<li style="list-style-type: none;"><strong>{{ error|escape }}</strong></li>
+			{% endfor %}
+		</ol>
+	{% endif %}
+	{% if form.language.errors %}
+		<ol style="color: red;">
+			{% for error in form.email.errors %}
+				<li style="list-style-type: none;"><strong>{{ error|escape }}</strong></li>
+			{% endfor %}
+		</ol>
+	{% endif %}
+	{% if form.subscribed.errors %}
+		<ol style="color: red;">
+			{% for error in form.email.errors %}
+				<li style="list-style-type: none;"><strong>{{ error|escape }}</strong></li>
+			{% endfor %}
+		</ol>
+	{% endif %}
+	{% if form.password1.errors %}
+		<ol style="color: red;">
+			{% for error in form.password1.errors %}
+				<li style="list-style-type: none;"><strong>{{ error|escape }}</strong></li>
+			{% endfor %}
+		</ol>
+	{% endif %}
+	{% if form.password2.errors %}
+		<ol style="color: red;">
+			{% for error in form.password2.errors %}
+				<li style="list-style-type: none;"><strong>{{ error|escape }}</strong></li>
+			{% endfor %}
+		</ol>
+	{% endif %}
+	<fieldset class="fieldset">
+		<h3 class="fieldset-title">Контактные данные</h3>
+		<div class="form-group">
+			<label class="col-md-2  col-sm-3 col-xs-12 control-label">Город</label>
+			<div class="col-md-10 col-sm-9 col-xs-12">
+				{{ form.city }}
+			</div>
+		</div>
+		<br>
+		<div class="form-group">
+			<label class="col-md-2  col-sm-3 col-xs-12 control-label">Язык программирования</label>
+			<div class="col-md-10 col-sm-9 col-xs-12">
+				{{ form.language }}
+			</div>
+		</div>
+		<br>
+		<div class="form-group">
+			<label class="col-md-2  col-sm-3 col-xs-12 control-label">Статус подписки {{ form.subscribed }}</label>
+		</div>
+		<br>
+		<div class="form-group">
+			<label class="col-md-2  col-sm-3 col-xs-12 control-label">Новый пароль</label>
+			<div class="col-md-10 col-sm-9 col-xs-12">
+				{{ form.password1 }}
+			</div>
+		</div>
+		<br>
+		<div class="form-group">
+			<label class="col-md-2  col-sm-3 col-xs-12 control-label">Повторите пароль</label>
+			<div class="col-md-10 col-sm-9 col-xs-12">
+				{{ form.password2 }}
+			</div>
+		</div>
+	</fieldset>
+	<hr>
+	<div class="form-group">
+		<div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
+			<input class="btn btn-primary" type="submit" value="Обновить профиль">
+		</div>
+	</div>
+</form>

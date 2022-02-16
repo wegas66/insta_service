@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+{%block head%}
+{%endblock%}
+</head>
+<body>
+<nav class="menu">
+  <ul>
+    <li><a href="{%url 'main_app:home'%}">Главная</a></li>
+    <li><a href="{%url 'main_app:tasks'%}">Задачи</a></li>
+    <li><a href="#">Личный кабинет</a></li>
+    {%if not user.is_authenticated%}
+    <li><a href="{%url 'accounts:login'%}">Войти</a></li>
+    <li><a href="{%url 'accounts:signup'%}">Регистрация</a></li>
+    {%else%}
+    <li><a href="{%url 'accounts:logout'%}">Выйти</a></li>
+    {%endif%}
+  </ul>
+</nav>
+{%block content%}
+{%endblock%}
+</body>
+</html>

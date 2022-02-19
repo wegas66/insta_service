@@ -9,7 +9,6 @@
 {% endblock %}
 {% block body %}
 <body>
-	{% include 'global/include/header.html' %}
 	{% include 'accounts/include/modals/confirm_delete_account.html' %}
 	<div class="messages" style="margin: 0px;">
 		{% include 'global/include/messages/flash_messages.html' %}
@@ -19,11 +18,15 @@
 			<div class=" image d-flex flex-column justify-content-center align-items-center">
 				<button class="btn btn-secondary"><img src="{% static 'accounts/img/user_avatar.png' %}" height="100" width="100"/>
 				</button>
-				<span class="name mt-3">{{ user.email }}</span> <span class="idd">Город: {% if user.city %}{{ user.city }}{% else %}Не указан{% endif %}</span>
-				<span class="idd">Подписка на рассылку: {% if user.subscribed %} Да {% else %} Нет {% endif %}</span>
-				<span class="idd">Язык программирования: {% if user.language %} {{ user.language }} {% else %} Не выбран {% endif %}</span>
+				<span class="name mt-3">{{ user.email }}</span>
+				<span class="idd">Баланс: {{ user.paymentaccount.balance }} р.</span>
 				<div class=" d-flex mt-2">
 					<button class="btn1 btn-dark"><a href="{% url 'accounts:update_profile' %}" style="color: white;">Изменить профиль</a></button>
+					<button id="myBtn" class="btn1 btn-danger" style="background: #ff0000e8; margin-left: 10px;"><a style="color: white;">Удалить аккаунт</a></button>
+
+				</div>
+				<div class=" d-flex mt-2">
+					<button class="btn1 btn-dark"><a href="{% url 'payments:balance_add' %}" style="color: white;">Пополнить баланс</a></button>
 					<button id="myBtn" class="btn1 btn-danger" style="background: #ff0000e8; margin-left: 10px;"><a style="color: white;">Удалить аккаунт</a></button>
 				</div>
 				<div class=" px-2 rounded mt-4 date ">

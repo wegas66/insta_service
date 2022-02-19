@@ -13,6 +13,7 @@ INSTALLED_APPS = [
 
     'main.apps.MainConfig',
     'accounts.apps.AccountsConfig',
+    'payments.apps.PaymentsConfig',
 ]
 
 MIDDLEWARE = [

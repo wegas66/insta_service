@@ -3,6 +3,7 @@ from django.contrib.auth import logout, authenticate, login, get_user_model, upd
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from accounts.forms import LoginForm, SignUpForm, UserUpdateForm
+from payments.models import PaymentAccount
 
 User = get_user_model()
 
@@ -59,7 +60,8 @@ def signup_page(request):
                 user.is_active = True
                 user.set_password(password)
                 user.save()
-                # hello_sender.delay(email)
+                payment_acc = PaymentAccount(user=user)
+                payment_acc.save()
                 messages.success(request, 'Вы успешно зарегистрировались! Теперь войдите в систему')
                 return redirect('accounts:login')
             else:

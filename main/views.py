@@ -6,10 +6,9 @@ from django.views.generic.base import TemplateView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import logout, get_user_model
 from django.urls import reverse_lazy
-from django.contrib.auth.forms import UserCreationForm
-from django.db.models import Sum
 from .forms import TaskParseSubscribersForm, TaskParseLikesForm
-import datetime
+from payments.models import Transaction
+
 
 
 
@@ -37,9 +36,21 @@ class CreateTaskSubsView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('main_app:tasks')
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
-        form.instance.name = f'Задача "парсинг подписчиков" №'
-        return super().form_valid(form)
+        payment_acc = self.request.user.paymentaccount
+        total_sum = TaskParseSubscribers(instagram_users=form.instance.instagram_users, quantity_users=form.instance.quantity_users).total_sum()
+        if payment_acc.balance >= total_sum: #хватает ли средств на балансе
+            payment = Transaction(user=self.request.user.paymentaccount, reason='SUB', amount=form.instance.quantity_users) #создание транзакции
+            payment.save()
+
+            payment_acc.balance -= total_sum #изменение баланса
+            payment_acc.save()
+
+            form.instance.user = self.request.user
+            form.instance.name = f'Задача "парсинг подписчиков" №'
+            form.instance.payment = payment
+            return super().form_valid(form)
+        else:
+            return render(request=self.request, template_name='payments/not_enough_balance.html')
 
 
 class CreateTaskLikesView(LoginRequiredMixin, CreateView):
@@ -49,12 +60,25 @@ class CreateTaskLikesView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('main_app:tasks')
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
-        form.instance.name = f'Задача "парсинг лайков" №'
-        return super().form_valid(form)
+        payment_acc = self.request.user.paymentaccount
+        total_sum = TaskParseLikes(quantity_posts=form.instance.quantity_posts, quantity_users=form.instance.quantity_users).total_sum()
+        if payment_acc.balance >= total_sum: #хватает ли средств на балансе
+            payment = Transaction(user=self.request.user.paymentaccount, reason='SUB', amount=form.instance.quantity_users) #создание транзакции
+            payment.save()
+
+            payment_acc.balance -= total_sum #изменение баланса
+            payment_acc.save()
+
+            form.instance.user = self.request.user
+            form.instance.name = f'Задача "парсинг лайков" №'
+            return super().form_valid(form)
+        else:
+            return render(request=self.request, template_name='payments/not_enough_balance.html')
 
 
 class TaskResultView(LoginRequiredMixin, DetailView):
     template_name = 'main/task_result.html'
     model = Task
+
+
 

@@ -44,7 +44,6 @@ class CreateTaskSubsView(LoginRequiredMixin, CreateView):
             payment = Transaction(user=self.request.user.paymentaccount, reason='SUB', amount=form.instance.quantity_users) #создание транзакции
             payment.save()
 
-            parse.delay(form.instance.instagram_users, form.instance.quantity_users)
 
             payment_acc.balance -= total_sum #изменение баланса
             payment_acc.save()
@@ -56,6 +55,10 @@ class CreateTaskSubsView(LoginRequiredMixin, CreateView):
             return super().form_valid(form)
         else:
             return render(request=self.request, template_name='payments/not_enough_balance.html')
+
+    def get_success_url(self):
+        parse.delay(self.object.instagram_users, self.object.quantity_users, self.object.pk)
+        return super().get_success_url()
 
 
 class CreateTaskLikesView(LoginRequiredMixin, CreateView):

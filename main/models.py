@@ -12,7 +12,6 @@ class Task(PolymorphicModel):
     name = models.CharField(max_length=200, default='Задача')
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
-    label = models.CharField(max_length=100, blank=True, null=True)
     completed = models.BooleanField(default=False)
     result = models.FileField(upload_to='uploads/', blank=True, null=True)
     payment = models.OneToOneField(Transaction, on_delete=models.PROTECT, blank=True, null=True)

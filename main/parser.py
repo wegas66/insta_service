@@ -11,7 +11,7 @@ def get_account():
     return account
 
 
-def parser(users, nfollows):
+def parser(users, nfollows, pk):
     acc = get_account()
     users = users.replace(' ', '').split(',')
     #make account in use

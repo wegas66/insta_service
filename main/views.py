@@ -8,7 +8,7 @@ from django.contrib.auth import logout, get_user_model
 from django.urls import reverse_lazy
 from .forms import TaskParseSubscribersForm, TaskParseLikesForm
 from payments.models import Transaction
-
+from .tasks import parse
 
 
 
@@ -39,8 +39,12 @@ class CreateTaskSubsView(LoginRequiredMixin, CreateView):
         payment_acc = self.request.user.paymentaccount
         total_sum = TaskParseSubscribers(instagram_users=form.instance.instagram_users, quantity_users=form.instance.quantity_users).total_sum()
         if payment_acc.balance >= total_sum: #хватает ли средств на балансе
+
+
             payment = Transaction(user=self.request.user.paymentaccount, reason='SUB', amount=form.instance.quantity_users) #создание транзакции
             payment.save()
+
+            parse.delay(form.instance.instagram_users, form.instance.quantity_users)
 
             payment_acc.balance -= total_sum #изменение баланса
             payment_acc.save()
@@ -48,6 +52,7 @@ class CreateTaskSubsView(LoginRequiredMixin, CreateView):
             form.instance.user = self.request.user
             form.instance.name = f'Задача "парсинг подписчиков" №'
             form.instance.payment = payment
+
             return super().form_valid(form)
         else:
             return render(request=self.request, template_name='payments/not_enough_balance.html')

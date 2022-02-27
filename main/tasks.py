@@ -4,9 +4,10 @@ from insta_service.celery import app
 
 
 @app.task()
-def sync_task(nfollows):
+def parse(users, nfollows):
     try:
-        parse_followers(nfollows)
+        parse_followers(users, nfollows)
         return True
-    except:
+    except Exception as e:
+        print(e)
         return False

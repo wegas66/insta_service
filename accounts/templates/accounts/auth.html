@@ -1,0 +1,27 @@
+{% extends 'accounts/base.html' %}{% load static %}
+{% block title %} {{ title }} {% endblock %}
+{% block extra_head %}
+	<link rel="stylesheet" href="{% static 'accounts/css/auth.css' %}">
+{% endblock %}
+{% block body %}
+<body>
+	<div style="width: 100%;">
+		{% include 'accounts/include/messages/flash_messages.html' %}
+	</div>
+	<div class="login-wrap">
+		<div class="login-html">
+			<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Вход</label>
+			<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Регистрация</label>
+			<div class="login-form">
+				<div class="sign-in-htm">
+					{% include 'accounts/include/forms/login.html' %}
+				</div>
+				<div class="sign-up-htm">
+					{% include 'accounts/include/forms/signup.html' %}
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+{% endblock body %}

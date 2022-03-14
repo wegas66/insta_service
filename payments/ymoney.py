@@ -1,14 +1,18 @@
+import os
 from yoomoney import Client, Quickpay
 from .models import Invoice, Transaction
+from dotenv import load_dotenv
 
-token = '410011046054185.51E05EBAB58C9DD088021434E729E1AF95408B801067A4CC3E2B7EAB51841C4E791AFA59260C05B9AB8674C1571E59FF58E8E05EC177E37EF542A2B72577B0E7CD28F5E03CD8F24D3C1FC8B249949C54038660BB03C93ACEAC3B03D0034318620713FDEDBCE02792354E3135279EFC8471799263129581654ACE98A36C72D93C'
+load_dotenv()
+
+token = os.getenv("YOOMONEY_TOKEN")
 client = Client(token)
 user = client.account_info()
 
 
 def get_operation_url(sum, label):
     quickpay = Quickpay(
-        receiver="410011046054185",
+        receiver=os.getenv("YOOMONEY_ID"),
         quickpay_form="shop",
         targets="Sponsor this project",
         paymentType="SB",

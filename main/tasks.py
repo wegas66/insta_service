@@ -1,12 +1,12 @@
 import time
-from .parser import *
+from .parser import run_parser
 from insta_service.celery import app
 
 
 @app.task()
 def parse(users, nfollows, pk):
     try:
-        parse_followers(users, nfollows, pk)
+        run_parser(users, nfollows, pk)
         return True
     except Exception as e:
         print(e)

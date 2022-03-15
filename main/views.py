@@ -9,12 +9,12 @@ from django.urls import reverse_lazy
 from .forms import TaskParseSubscribersForm, TaskParseLikesForm
 from payments.models import Transaction
 from .tasks import parse
-
+from django.contrib.auth.decorators import login_required
 
 
 
 class HomeView(TemplateView):
-    template_name = 'main/home.html'
+    template_name = 'insta_app/home.html'
 
     # def get_context_data(self, **kwargs):
     #     context = super().get_context_data(**kwargs)
@@ -90,3 +90,33 @@ class TaskResultView(LoginRequiredMixin, DetailView):
 
 
 
+@login_required(login_url="accounts:auth")
+def parser_page(request):
+    """Страница парсера"""
+
+    context = {
+        "title": "Парсер"
+    }
+    get_stage = request.GET.get("stage", 1)
+    if int(get_stage) == 2:
+        context['second_stage'] = True
+    elif int(get_stage) == 3:
+        context['third_stage'] = True
+    return render(
+        request,
+        "insta_app/parser.html",
+        context=context
+    )
+
+
+def payment(request):
+    """Страница оплаты"""
+
+    context = {
+        "title": "Оплата"
+    }
+    return render(
+        request,
+        "insta_app/payment.html",
+        context=context
+    )

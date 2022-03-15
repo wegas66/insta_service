@@ -1,0 +1,76 @@
+<div class="container" id="functions-new">{% load static %}
+	<div class=" block-plus">
+		<p class="block-plus-titel">Что можно сделать с помощью Инста-Парсера?</p>
+		<p class="block-plus-p">Все эти функции доступны вам прямо сейчас</p>
+		<div class="row">
+			<div class="col-md-6 col-lg-6">
+				<div class="block-plus-section">
+					<div class="block-plus-section-top">
+						<img src="{% static 'insta_app/img/analyze.svg' %}" alt="/" class="block-plus-section-img">
+						<h2 class="block-plus-section-titel">Сбор аккаунтов по заданным параметрам</h2>
+					</div>
+					<div class="block-plus-section-content">
+						<p class="block-plus-section-content-h">Сбор аккаунтов в Инстаграм:</p>
+						<ul class="block-plus-section-content-ul">
+							<li>по хештегам</li>
+							<li>по геолокации</li>
+							<li>подписки или подписчики определенного аккаунта (например, аккаунта вашего конкурента)
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-6">
+				<div class="block-plus-section">
+					<div class="block-plus-section-top">
+						<img src="{% static 'insta_app/img/contact.svg' %}" alt="/" class="block-plus-section-img">
+						<h2 class="block-plus-section-titel">Контактные данные пользователей</h2>
+					</div>
+					<div class="block-plus-section-content">
+						<p class="block-plus-section-content-h">Сбор дополнительных данных:</p>
+						<ul class="block-plus-section-content-ul">
+							<li>номер телефона</li>
+							<li>электронная почта</li>
+							<li>ссылка на сайт</li>
+							<li>описание профиля в Инстаграм</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-6">
+				<div class="block-plus-section">
+					<div class="block-plus-section-top">
+						<img src="{% static 'insta_app/img/filter.svg' %}" alt="/" class="block-plus-section-img">
+						<h2 class="block-plus-section-titel">Настройки фильтрации готовой базы</h2>
+					</div>
+					<div class="block-plus-section-content">
+						<p class="block-plus-section-content-h">Возможность фильтрации::</p>
+						<ul class="block-plus-section-content-ul">
+							<li>по полу</li>
+							<li>по количеству подписчиков и подписок</li>
+							<li>по приватности</li>
+							<li>отбраковка коммерческих профилей</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-6">
+				<div class="block-plus-section">
+					<div class="block-plus-section-top">
+						<img src="{% static 'insta_app/img/download.svg' %}" alt="/" class="block-plus-section-img">
+						<h2 class="block-plus-section-titel">Выгрузка списка для свободного использования</h2>
+					</div>
+					<div class="block-plus-section-content">
+						<p class="block-plus-section-content-h">Готовый список можно скачать в удобном формате и
+							использовать в личных целях - загрузить для масслукинга, настройки рекламы или обзвона</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<a class="btn btn-danger center-btn auto_reg new-auto-reg-btn pulse-button" href="{% url 'main_app:parser' %}">
+				Воспользоваться парсером
+			</a>
+		</div>
+	</div>
+</div>

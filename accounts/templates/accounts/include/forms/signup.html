@@ -1,6 +1,6 @@
-<p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Регистрация</p>
-<form class="mx-1 mx-md-4" action="{% url 'accounts:signup' %}" method="post">
+<form action="{% url 'accounts:signup' %}" method="post">
 	{% csrf_token %}
+	<h1>Регистрация</h1>
 	{% if signup_form.email.errors %}
 		<ol style="color: red;">
 			{% for error in signup_form.email.errors %}
@@ -22,31 +22,22 @@
 			{% endfor %}
 		</ol>
 	{% endif %}
-	<div class="d-flex flex-row align-items-center mb-4">
-		<i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-		<div class="form-outline flex-fill mb-0">
-			{{ signup_form.email }}
-		</div>
+	<div class="group">
+		<label for="email2" class="label">{{ signup_form.email.label }}</label>
+		{{ signup_form.email }}
 	</div>
-	<div class="d-flex flex-row align-items-center mb-4">
-		<i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-		<div class="form-outline flex-fill mb-0">
-			{{ signup_form.password1 }}
-		</div>
+	<div class="group">
+		<label for="password1" class="label">{{ signup_form.password1.label }}</label>
+		{{ signup_form.password1 }}
 	</div>
-	<div class="d-flex flex-row align-items-center mb-4">
-		<i class="fas fa-key fa-lg me-3 fa-fw"></i>
-		<div class="form-outline flex-fill mb-0">
-			{{ signup_form.password2 }}
-		</div>
+	<div class="group">
+		<label for="password1" class="label">{{ signup_form.password2.label }}</label>
+		{{ signup_form.password2 }}
 	</div>
-	<div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-		<button type="submit" class="btn btn-primary btn-lg">Зарегистрироваться</button>
-	</div>
-	<div style="text-align: center;">
-		<h6>или</h6>
-	</div>
-	<div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-		<a href="{% url 'accounts:login' %}" style="color: red;">Войти</a>
+	{% if next_page %}
+		<input type="hidden" name="next" value="{{ next_page }}">
+	{% endif %}
+	<div class="group">
+          <input type="submit" class="button" value="Зарегистрироваться">
 	</div>
 </form>

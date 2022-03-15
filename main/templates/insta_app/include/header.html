@@ -1,0 +1,53 @@
+<header id="landing-header">{% load static %}
+    <div style="width: 100%;">
+		{% include 'accounts/include/messages/flash_messages.html' %}
+	</div>
+    <div>
+        <nav class="navbar navbar-expand-md fixed-top navbar1">
+            <div class="container">
+                <div class="row" style="width: 100%; flex-wrap: nowrap">
+                    <a class="navbar-brand" href="{% url 'main_app:home' %}">Instagram Parser</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                        <img src="{% static 'insta_app/img/buter.png' %}" alt="/" class="navbar-toggler-img">
+                    </button>
+                    <div class="collapse navbar-collapse" id="collapsibleNavbar" style="justify-content: flex-end;">
+                        <ul class="navbar-nav justify-content-end">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#functions-new">Функционал</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#price">Цены</a>
+                            </li>
+                        </ul>
+                        {% if user.is_anonymous %}
+                            <a class="nav-a btn nav-a-left" href="{% url 'accounts:auth' %}">
+                                Войти|Регистрация
+                            </a>
+                        {% else %}
+                            {% if user.is_superuser %}
+                                <a class="nav-a nav-a-border btn auto_reg" href="{% url 'admin:index' %}">
+                                    Админ панель
+                                </a>
+                            {% endif %}
+                            <a class="nav-a nav-a-border btn auto_reg" href="{% url 'accounts:logout' %}">
+                                Выйти
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <h1 class="animated asH1">Инстаграм <span>Парсер</span></h1>
+                <div class="laner-header animated"></div>
+                <span class="header-p ">
+                    Собери целевую аудиторию из Instagram и получи первые лиды уже завтра<br>
+                                     </span>
+                <a id="sticky-button" class="btn btn-danger header-btn auto_reg pulse-button" href="{% url 'main_app:parser' %}">
+                    Воспользоваться парсером
+                </a>
+            </div>
+        </div>
+    </div>
+</header>

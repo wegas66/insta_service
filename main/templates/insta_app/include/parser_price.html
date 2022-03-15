@@ -1,0 +1,63 @@
+<div class="row">
+	<h3>Стоимость парсинга</h3>
+	<p class="h-p">Выгружайте аккаунты, оплатив пакет любым удобным способом:</p>
+	<style>
+            .economy-row {
+                font-size: 18px;
+                margin: -13.5px;
+                position: relative;
+                top: -25px;
+                padding: 0px;
+            }
+	</style>
+</div>
+<div class="row row-center">
+	<div class="col-lg-4 col-md-6 col-sm-6 block-cart-col mb-3">
+		<div class="block-cart block-cart-active">
+			<p class="block-cart-top">Пробный пакет</p>
+			<p class="block-cart-h" style="font-size: 33px;">
+				<span class="value">1</span> руб </p>
+			<p class="block-cart-p"><span class="value">3000</span> аккаунтов / мес</p>
+			<a class="btn btn-cart auto_reg" href="{% url 'main_app:parser' %}" data-autoreg-redirect="/payment">
+				Купить </a>
+		</div>
+	</div>
+	<div class="col-lg-4 col-md-6 col-sm-6 block-cart-col mb-3">
+		<div class="block-cart" data-tariff="1">
+			<p class="block-cart-top">Предприниматель</p>
+			<p class="block-cart-h price" style="font-size: 33px;">
+				<span class="value">498</span> руб / нед </p>
+			<p class="block-cart-h price economy-row">Экономия 40%</p>
+			<p class="block-cart-p accounts"><span class="value">30 000</span> аккаунтов / мес</p>
+			<a class="btn btn-cart auto_reg" href="{% url 'main_app:parser' %}" data-autoreg-redirect="/payment">
+				Купить </a>
+		</div>
+	</div>
+	<div class="col-lg-4 col-md-6 col-sm-6 block-cart-col mb-3">
+		<div class="block-cart" data-tariff="2">
+			<p class="block-cart-top">SMM-специалист</p>
+			<p class="block-cart-h price" style="font-size: 33px;">
+				<span class="value">748</span> руб / нед </p>
+			<p class="block-cart-h price economy-row">Экономия 40%</p>
+			<p class="block-cart-p accounts"><span class="value">300 000</span> аккаунтов / мес</p>
+			<a class="btn btn-cart auto_reg" href="{% url 'main_app:parser' %}" data-autoreg-redirect="/payment">
+				Купить </a>
+		</div>
+	</div>
+	<div class="col-lg-2 col-md-6 col-sm-6 block-cart-col d-sm-none d-md-none d-lg-block">
+
+	</div>
+	<div class="col-lg-4 col-md-6 col-sm-6 block-cart-col">
+		<div class="block-cart" data-tariff="3">
+			<p class="block-cart-top">Арбитражник</p>
+			<p class="block-cart-h price" style="font-size: 33px;">
+				<span class="value">1248</span> руб / нед </p>
+			<p class="block-cart-h price economy-row">Экономия 40%</p>
+			<p class="block-cart-p accounts"><span class="value">1 500 000</span> аккаунтов / мес</p>
+			<a class="btn btn-cart auto_reg" href="{% url 'main_app:parser' %}" data-autoreg-redirect="/payment">
+				Купить </a>
+		</div>
+	</div>
+	<div class="col-lg-2 col-md-6 col-sm-6 block-cart-col hidden-sm d-sm-none d-md-none b-lg-block">
+	</div>
+</div>

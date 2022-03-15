@@ -1,0 +1,30 @@
+{% extends 'insta_app/base.html' %}{% load static %}
+{% block title %} {{ title }} {% endblock %}
+{% block extra_head %}
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="{% static 'insta_app/css/bootstrap.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'insta_app/css/style.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'accounts/css/alert.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'insta_app/css/animate.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'insta_app/css/font-awesome.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'insta_app/css/switch.css' %}">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+{% endblock %}
+{% block body %}
+<body style="font-family: 'Rubik', 'Open Sans', sans-serif">
+	{% include 'insta_app/include/header.html' %}
+	{% include 'insta_app/include/features.html' %}
+	<div class="container container-pading" id="price">
+		{% include 'insta_app/include/parser_price.html' %}
+	</div>
+	{% include 'insta_app/include/footer.html' %}
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	<script src="{% static 'insta_app/js/jquery.js' %}"></script>
+	<script src="{% static 'insta_app/js/wow.min.js' %}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="{% static 'insta_app/js/main.js' %}"></script>
+</body>
+{% endblock %}

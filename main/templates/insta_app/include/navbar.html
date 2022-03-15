@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-md fixed-top navbar1">{% load static %}
+	<div class="container">
+		<div class="row" style="width: 100%; flex-wrap: nowrap">
+			<a class="navbar-brand" href="#">Instagram Parser</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+				<img src="{% static 'insta_app/img/buter.png' %}" alt="/" class="navbar-toggler-img">
+			</button>
+			<div class="collapse navbar-collapse" id="collapsibleNavbar" style="justify-content: flex-end;">
+				<ul class="navbar-nav justify-content-end">
+					<li class="nav-item">
+						<a class="nav-link" href="#functions-new">Функционал</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#capabilities-new">Возможности</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#reviews">Отзывы</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#price">Цены</a>
+					</li>
+				</ul>
+				<a class="nav-a btn nav-a-left" href="/auth/login">
+					Войти </a>
+				<a class="nav-a nav-a-border btn auto_reg" href="/auth/signup">
+					Регистрация </a>
+			</div>
+		</div>
+	</div>
+</nav>

@@ -1,5 +1,3 @@
-from django.contrib import admin
-
 from django import forms
 from django.contrib import admin
 from django.contrib.auth.models import Group
@@ -12,8 +10,8 @@ from accounts.models import CustomUser
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
+    password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Пароль ещё раз', widget=forms.PasswordInput)
 
     class Meta:
         model = CustomUser
@@ -23,7 +21,7 @@ class UserCreationForm(forms.ModelForm):
         password1 = self.cleaned_data.get("password1")
         password2 = self.cleaned_data.get("password2")
         if password1 and password2 and password1 != password2:
-            raise ValidationError("Passwords don't match")
+            raise ValidationError("Пароли не совпадают!")
         return password2
 
     def save(self, commit=True):
@@ -43,17 +41,17 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = CustomUser
-        fields = ('email', 'password', 'is_active', 'is_admin')
+        fields = ('is_active', 'is_superuser')
 
 
 class CustomUserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
-    list_display = ('email', 'is_admin', 'staff')
-    list_filter = ('is_admin',)
+    list_display = ('email', 'is_staff',)
+    list_filter = ('is_superuser', 'is_staff',)
     fieldsets = (
-        (None, {'fields': ('email', 'password', 'is_active')}),
-        ('Permissions', {'fields': ('is_admin', 'staff', 'date_joined', 'last_login',)}),
+        (None, {'fields': ('email', 'is_active')}),
+        ('Permissions', {'fields': ('is_superuser', 'is_staff', 'date_joined', 'last_login',)}),
     )
     add_fieldsets = (
         (None, {
@@ -64,7 +62,7 @@ class CustomUserAdmin(BaseUserAdmin):
     search_fields = ('email',)
     ordering = ('email',)
     filter_horizontal = ()
-    readonly_fields = ['date_joined', 'last_login']
+    readonly_fields = ['date_joined', 'last_login', 'email', 'is_active', ]
 
 
 admin.site.register(CustomUser, CustomUserAdmin)

@@ -18,6 +18,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#price">Цены</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{%url 'main_app:tasks'%}">Мои задачи</a>
+                            </li>
                         </ul>
                         {% if user.is_anonymous %}
                             <a class="nav-a btn nav-a-left" href="{% url 'accounts:auth' %}">
@@ -29,6 +32,9 @@
                                     Админ панель
                                 </a>
                             {% endif %}
+                            <a class="nav-a nav-a-border btn auto_reg" href="{% url 'accounts:logout' %}">
+                                Личный кабинет
+                            </a>
                             <a class="nav-a nav-a-border btn auto_reg" href="{% url 'accounts:logout' %}">
                                 Выйти
                             </a>

@@ -1,5 +1,5 @@
 <div class="block-progress d-flex justify-content-center">{% load static %}
-	{% if second_stage %}
+	{% if third_stage %}
 		<div class="block-progress-stage">
 			<div class="block-progress-stage_number success_process" style="background: #0076FF;">
 				<img src="{% static 'insta_app/img/check.svg' %}" alt="">
@@ -8,27 +8,6 @@
 		<div class="block-progress_line block-progress_line_1 "></div>
 		<div class="block-progress-stage">
 			<div class="block-progress-stage_number block-progress-stage_number_active" style="color: #0076FF; border: 3px solid #0076FF;">2</div>
-			<p class="block-progress-stage_p">Сбор аккаунтов и выгрузка</p></div>
-		<div class="block-progress_line block-progress_line_2 "></div>
-		<div class="block-progress-stage">
-			<div class="block-progress-stage_number" style="background: white;">3</div>
-			<p class="block-progress-stage_p">Фильтрация и выгрузка</p>
-		</div>
-	{% elif third_stage %}
-		<div class="block-progress-stage">
-			<div class="block-progress-stage_number success_process" style="background: #0076FF;">
-				<img src="{% static 'insta_app/img/check.svg' %}" alt="">
-			</div>
-			<p class="block-progress-stage_p block-progress-stage_p_active">Настройка сбора</p></div>
-		<div class="block-progress_line block-progress_line_1 "></div>
-		<div class="block-progress-stage">
-			<div class="block-progress-stage_number success_process" style="background: #0076FF;">
-				<img src="{% static 'insta_app/img/check.svg' %}" alt="">
-			</div>
-			<p class="block-progress-stage_p">Сбор аккаунтов и выгрузка</p></div>
-		<div class="block-progress_line block-progress_line_2 "></div>
-		<div class="block-progress-stage">
-			<div class="block-progress-stage_number block-progress-stage_number_active" style="color: #0076FF; border: 3px solid #0076FF;">3</div>
 			<p class="block-progress-stage_p">Фильтрация и выгрузка</p>
 		</div>
 	{% else %}
@@ -36,10 +15,6 @@
 			<div class="block-progress-stage_number block-progress-stage_number_active" style="color: #0076FF; border: 3px solid #0076FF;">1</div>
 			<p class="block-progress-stage_p block-progress-stage_p_active">Настройка сбора</p></div>
 		<div class="block-progress_line block-progress_line_1 "></div>
-		<div class="block-progress-stage">
-			<div class="block-progress-stage_number" style="background: white;">2</div>
-			<p class="block-progress-stage_p">Сбор аккаунтов и выгрузка</p></div>
-		<div class="block-progress_line block-progress_line_2 "></div>
 		<div class="block-progress-stage">
 			<div class="block-progress-stage_number" style="background: white;">3</div>
 			<p class="block-progress-stage_p">Фильтрация и выгрузка</p>

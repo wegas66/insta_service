@@ -1,19 +1,14 @@
 <div class="panel-customization" style="box-sizing: border-box; color: #333333; font-weight: bold; box-shadow: 0 0 0 1px #d6d6d6; border-radius: 10px;">{% load static %}
 	<div class="row" style=" margin-right: -15px; margin-left: -15px; text-align: center; clear: both;">
 		<div class="col-md-5 col-lg-4 panel-customization-left d-flex flex-row" style="box-sizing: border-box; text-align: center;">
-			<p class="panel-customization-left_p" id="subscription-modal-show-btn" data-subscribe-period-modal=""
-			   style="cursor: pointer; display: inline-block; font-size: 16px; width: 100%; margin: 0 0 16px 0;
-			   line-height: 17px; text-align: center; margin-top: 15px; ">
-				Доступ до<span>  09.02.2022 20:22:23</span>
-			</p>
 			<button class="btn" style=" background: #0094ff; margin-left: 10px; margin-bottom: 10px; margin-top: 10px;">
-				<a href="{% url 'main_app:payment' %}" style="text-align: center; margin: 0 auto;
-				 color: white;">Оплатить</a>
+				<a href="{% url 'payments:balance_add' %}" style="text-align: center; margin: 0 auto;
+				 color: white;">Пополнить баланс</a>
 			</button>
 		</div>
 		<div class="col-md-3 col-lg-4">
 			<p class="panel-customization_center" style="margin-top: 20px;">
-				Израсходовано баллов: <span id="balance-value">150</span>/<span id="balance-total">3000</span>
+				Всего баллов: <span id="balance-total">{{user.paymentaccount.balance}}</span>
 			</p>
 		</div>
 		<div class="col-md-4 col-lg-4 panel-customization-right" id="available-accounts-container">
@@ -25,7 +20,7 @@
 															 class="account_block-add_hpoto"
 															 style="width: 40px;height: 40px; border-radius: 50%;"
 							>
-							<span class="account_block-add_name"> @__alone__2712</span>
+							<span class="account_block-add_name"> {{user.email}}</span>
 						</div>
 					</div>
 				</div>

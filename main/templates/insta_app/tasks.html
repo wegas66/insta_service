@@ -1,6 +1,6 @@
-{%extends 'base.html'%}
+{%extends 'insta_app/base.html'%}
 
-{%block content%}
+{% block body %}
 <h1>Задачи</h1>
 <table>
   <tr>
@@ -16,6 +16,5 @@
   </tr>
   {%endfor%}
 </table>
-<a href="{%url 'main_app:create_task_subs'%}">Создать новую задачу subs</a>
-<a href="{%url 'main_app:create_task_likes'%}">Создать новую задачу likes</a>
+<a href="{%url 'main_app:parser'%}">Создать новую задачу</a>
 {%endblock%}

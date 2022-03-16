@@ -47,7 +47,7 @@ class UserChangeForm(forms.ModelForm):
 class CustomUserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
-    list_display = ('email', 'is_staff',)
+    list_display = ('email', 'is_staff')
     list_filter = ('is_superuser', 'is_staff',)
     fieldsets = (
         (None, {'fields': ('email', 'is_active')}),

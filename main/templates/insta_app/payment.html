@@ -23,45 +23,22 @@
 	<div class="container row" style="margin: 0 auto;">
 		<div class="col-12 col-sm-8 col-lg-8 col-xs-8 col-md-8"  style="box-sizing: border-box; background: white; padding: 20px; margin: 0 auto;
 								border-radius: 10px;">
+			<form method="POST">
+			{%csrf_token%}
 			<div class="content_stage" style="color: black; border: 1px solid #333; padding: 10px; border-radius: 10px;">
-				<h3 class="content_stage-title content_stage-title-mb" style="text-align: center;">Выберите интересующий тариф</h3>
-				<div class="d-flex flex-row" style="margin-bottom: 20px; text-align: center;">
-					<h6 class="inline-flex " style="text-align: center; margin-top: 5px;">Укажите желаемый срок действия: </h6>
-					<div class="inline-flex" style="margin-left: 10px; text-align: center;">
-						{% include 'insta_app/include/forms/time_selector.html' %}
-					</div>
-				</div>
+				<h3 class="content_stage-title content_stage-title-mb" style="text-align: center;">Пополните ваш баланс</h3>
 				<div style="border: 1px solid white; border-radius: 10px; padding: 10px; color: black;">
-					<div class="radio">
-						<input type="radio" id="content1" class="radio__input" name="order_typea" value="by_content" style="margin: 0;">
-						<label class="radio__label" for="content1">
-							<span class="col-4">Предприниматель</span>
-							<span class="col-4">30 000 аккаунтов</span>
-							<span class="col-4">1990 руб.</span>
-						</label>
-					</div>
-					<div class="radio">
-						<input type="radio" id="content2" class="radio__input" name="order_typea" value="by_content" style="margin: 0;">
-						<label class="radio__label" for="content2">
-							<span class="col-4">SMM щик</span>
-							<span class="col-4">300,000 аккаунтов</span>
-							<span class="col-4">1990 руб.</span>
-						</label>
-					</div>
-					<div class="radio">
-						<input type="radio" id="content3" class="radio__input" name="order_typea" value="by_content" style="margin: 0;">
-						<label class="radio__label" for="content3">
-							<span class="col-4">Арбитражник</span>
-							<span class="col-4">1 000 000 аккаунтов</span>
-							<span class="col-4">4990 руб.</span>
-						</label>
-					</div>
+				<div>
+					<label class="checkbox__label">Количество баллов (1р. = 100 баллов):</label>
+					<input type="number" name="amount"  step="1">
+				</div>
 				</div>
 				<br><br>
 				<div class="payment-w" style="text-align: center;">
-					<a href="#" class="btn btn-primary btn-lg" style=" width: 17em; margin-bottom: 2em; text-align: center;">Оплатить</a>
+					<button class="btn btn-primary btn-lg" type="submit" style=" width: 17em; margin-bottom: 2em; text-align: center;">Оплатить</button>
 				</div>
 			</div>
+			</form>
 		</div>
 	</div>
 	<br><br><br>

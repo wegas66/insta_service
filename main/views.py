@@ -21,7 +21,7 @@ class HomeView(TemplateView):
     #     return context
 
 class TasksView(LoginRequiredMixin, TemplateView):
-    template_name = 'main/tasks.html'
+    template_name = 'insta_app/tasks.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -30,12 +30,13 @@ class TasksView(LoginRequiredMixin, TemplateView):
 
 
 class CreateTaskSubsView(LoginRequiredMixin, CreateView):
-    template_name = 'main/create_task_subs_form.html'
+    template_name = 'insta_app/parser.html'
     model = TaskParseSubscribers
     form_class = TaskParseSubscribersForm
     success_url = reverse_lazy('main_app:tasks')
 
     def form_valid(self, form):
+        print(form.cleaned_data)
         payment_acc = self.request.user.paymentaccount
         total_sum = TaskParseSubscribers(instagram_users=form.instance.instagram_users, quantity_users=form.instance.quantity_users).total_sum()
         if payment_acc.balance >= total_sum: #хватает ли средств на балансе
@@ -81,42 +82,14 @@ class CreateTaskLikesView(LoginRequiredMixin, CreateView):
             form.instance.name = f'Задача "парсинг лайков" №'
             return super().form_valid(form)
         else:
-            return render(request=self.request, template_name='payments/not_enough_balance.html')
+            return render(request=self.request, template_name='insta_app/not_enough_balance.html')
 
 
 class TaskResultView(LoginRequiredMixin, DetailView):
-    template_name = 'main/task_result.html'
+    template_name = 'insta_app/parser.html'
     model = Task
 
-
-
-@login_required(login_url="accounts:auth")
-def parser_page(request):
-    """Страница парсера"""
-
-    context = {
-        "title": "Парсер"
-    }
-    get_stage = request.GET.get("stage", 1)
-    if int(get_stage) == 2:
-        context['second_stage'] = True
-    elif int(get_stage) == 3:
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         context['third_stage'] = True
-    return render(
-        request,
-        "insta_app/parser.html",
-        context=context
-    )
-
-
-def payment(request):
-    """Страница оплаты"""
-
-    context = {
-        "title": "Оплата"
-    }
-    return render(
-        request,
-        "insta_app/payment.html",
-        context=context
-    )
+        return context

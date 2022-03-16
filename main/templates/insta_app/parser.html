@@ -30,15 +30,7 @@
 			</div>
 		</div>
 	</div>
-	{% if second_stage %}
-		<div class="container container-center col-sm-12 col-12" style="text-align: center;">
-			<div class="col-xs-10 col-sm-12 col-md-10 "
-				 style="display: inline-block; border: 1px solid #808080; padding: 10px; border-radius: 10px;">
-				<br>
-				{% include 'insta_app/include/second_stage.html' %}
-			</div>
-		</div>
-	{% elif third_stage %}
+	{% if third_stage %}
 		<div class="container container-center col-sm-12 col-12" style="text-align: center;">
 			<div class="col-xs-10 col-sm-12 col-md-10 "
 				 style="display: inline-block; border: 1px solid #808080; padding: 10px; border-radius: 10px;">
@@ -48,18 +40,16 @@
 		</div>
 	{% else %}
 		<div class="container container-center col-sm-12 col-12" style="text-align: center;">
-			<form method="get" class="col-xs-10 col-sm-12 col-md-10 " style="display: inline-block; border: 1px solid #808080; padding: 10px; border-radius: 10px;">
+			<form method="post" class="col-xs-10 col-sm-12 col-md-10 " style="display: inline-block; border: 1px solid #808080; padding: 10px; border-radius: 10px;">
+				{%csrf_token%}
 				<br>
 				<h3 class="content_stage-title text-center" style="color: black;">Шаг 1: Настройте один тип сбора или же комбинацию из двух любых типов в одном</h3>
 				<div class="col-xs-10 col-sm-10 col-md-10 row" style="margin: 0 auto; color: black;">
 					{% include 'insta_app/include/forms/get_accounts.html' %}
 				</div>
 				<br>
-				{% include 'insta_app/include/forms/get_by_hash.html' %}
 				{% include 'insta_app/include/forms/get_by_competitors.html' %}
-				{% include 'insta_app/include/forms/get_by_city.html' %}
 				{% include 'insta_app/include/forms/get_by_publish.html' %}
-				{% include 'insta_app/include/forms/get_by_content.html' %}
 				<br><br>
 				<input type="hidden" name="stage" value="2">
 				<button class="btn btn-primary" type="submit" style="color: white;">

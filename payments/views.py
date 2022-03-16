@@ -9,7 +9,7 @@ from django.views.generic.base import TemplateView
 
 class CreateInvoiceView(LoginRequiredMixin, CreateView):
     form_class = CreateInvoiceForm
-    template_name = 'payments/balance_add.html'
+    template_name = 'insta_app/payment.html'
 
     def form_valid(self, form):
         label = uuid.uuid4()

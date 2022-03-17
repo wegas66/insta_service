@@ -21,6 +21,13 @@
 					<input class="checkbox__input" id="by_extra_publish" type="checkbox">
 					<label for="by_extra_publish" class="checkbox__label">Собирать дополнительные данные</label>
 				</div>
+				<div>
+					<label class="checkbox__label">Количество постов:</label>
+					<input type="number" name="quantity_posts" step="1">
+					<label class="checkbox__label">Количество пользователей с одного поста:</label>
+					<input type="number" name="quantity_users" step="1">
+					<input type="hidden" name="form_type" value="likes">
+				</div>
 			</div>
 		</div>
 		<div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
@@ -28,7 +35,7 @@
 				<span>Вставьте ссылки на нужные публикации (каждая ссылка с новой строчки)</span>
 			</label>
 			<div class="col-12 col-sm-12 col-md-12">
-				<textarea class="form-control col" rows="7"></textarea>
+				<textarea class="form-control col" rows="7" name="instagram_user"></textarea>
 				<label class="form-group-bottom_p">* Сбор возможен только по публикациям с открытых аккаунтов</label>
 			</div>
 		</div>

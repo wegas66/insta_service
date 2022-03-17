@@ -39,3 +39,24 @@ class SignUpForm(UserCreationForm):
         widgets = {
             'email': forms.EmailInput(attrs={'placeholder': "Email*", "class": "input", "id": "email2"}),
         }
+
+
+class UserUpdateForm(forms.ModelForm):
+    """Форма для обновления профиля юзера"""
+
+    password1 = forms.CharField(
+        label='',
+        max_length=300,
+        widget=forms.PasswordInput(attrs={"autocomplete": "new-password"}),
+        required=False
+    )
+    password2 = forms.CharField(
+        label='',
+        max_length=300,
+        widget=forms.PasswordInput(attrs={"autocomplete": "false"}),
+        required=False
+    )
+
+    class Meta:
+        model = User
+        fields = ('password1', 'password2')

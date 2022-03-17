@@ -1,10 +1,10 @@
 import uuid
 from django.contrib import messages
-from django.contrib.auth import logout, authenticate, login, get_user_model
+from django.contrib.auth import logout, authenticate, login, get_user_model, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from accounts.email_senders import confirm_email
-from accounts.forms import LoginForm, SignUpForm
+from accounts.forms import LoginForm, SignUpForm, UserUpdateForm
 
 User = get_user_model()
 
@@ -129,3 +129,46 @@ def logout_user(request):
     else:
         messages.info(request, 'Метод POST не разрешен')
     return redirect('main_app:home')
+
+
+@login_required(login_url='accounts:login')
+def profile(request):
+    return render(
+        request,
+        'accounts/profile.html'
+    )
+
+
+@login_required(login_url='accounts:login')
+def userUpdate(request):
+    """Страница для обновления профиля"""
+
+    if request.method == "POST":
+        form = UserUpdateForm(request.POST, instance=request.user)
+        if form.is_valid():
+            valid_data = form.cleaned_data
+            if valid_data['password1'] != valid_data['password2']:
+                messages.error(request, 'Пароли не совпадают!')
+                return redirect("accounts:update_profile")
+            user = form.save(commit=False)
+            new_password = valid_data['password1']
+            if len(new_password) > 0:
+                if len(new_password) < 8:
+                    messages.error(request, 'Пароль не должен быть менее 8 символов!')
+                    return redirect("accounts:update_profile")
+                user.set_password(new_password)
+            user.save()
+            messages.success(request, 'Данные успешно изменены')
+            update_session_auth_hash(request, user)
+            return redirect("accounts:profile")
+    else:
+        form = UserUpdateForm()
+    context = {
+        "form": form,
+        "title": "Обновление профиля"
+    }
+    return render(
+        request,
+        'accounts/update_page.html',
+        context=context
+    )

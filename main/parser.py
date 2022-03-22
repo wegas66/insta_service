@@ -1,4 +1,6 @@
-from instabot import Bot, utils
+import os
+
+from instagrapi import Client
 from .models import IGAccount
 from main.models import Task
 import datetime
@@ -24,18 +26,27 @@ class InstagramAccount:
 
 
 class Parser:
+    IG_CREDENTIAL_PATH = './ig_accs_settings/'
+
     def __init__(self, users, quantity, account):
         self.users = users.replace(' ', '').split(',')
         self.quantity = quantity
         self.account = account
-        self.bot = Bot()
+        self._bot = Client()
         self.followers = []
-        self.bot.login(username=self.account.username, password=self.account.password)
+        if os.path.exists(self.IG_CREDENTIAL_PATH + self.account.username + '.json'):
+            self._bot.load_settings(self.IG_CREDENTIAL_PATH + self.account.username + '.json')
+            self._bot.login(username=self.account.username, password=self.account.password)
+        else:
+            self._bot.login(username=self.account.username, password=self.account.password)
+            self._bot.dump_settings(self.IG_CREDENTIAL_PATH + self.account.username + '.json')
+
 
     def parse_followers(self):
         for user in self.users:
             try:
-                self.followers += self.bot.get_user_followers(user, nfollows=self.quantity)
+                user_id = self._bot.user_id_from_username(user)
+                self.followers += self._bot.user_followers(user_id, self.quantity)
             except Exception as e:
                 print(e)
                 continue

@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from dotenv import load_dotenv
 
+load_dotenv()
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -20,12 +22,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '9UBYpF3pKWen1NZc76k18vinOUAxSBQmAg8VNjKP7jqMinWUOGsOIp5JVsDYLzyp'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['89.108.83.59', '2a00:f940:2:4:2::19d4', '89-108-83-59.cloudvps.regruhosting.ru']
+ALLOWED_HOSTS = ['37.59.246.136', 'localhost']
 
 # Application definition
 
@@ -57,10 +59,7 @@ ROOT_URLCONF = 'insta_service.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            BASE_DIR / "accounts/templates",
-            BASE_DIR / "main/templates"
-        ],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -80,9 +79,9 @@ WSGI_APPLICATION = 'insta_service.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'django_project_db',
-        'USER': 'django',
-        'PASSWORD': 'Phuataecooc9',
+        'NAME': 'django_db',
+        'USER': 'django_db_user',
+        'PASSWORD': 'Kras1n1jLed',
         'HOST': 'localhost',
         'PORT': '',
     }
@@ -123,6 +122,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "accounts/static"),
     os.path.join(BASE_DIR, "main/static")

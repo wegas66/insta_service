@@ -143,3 +143,6 @@ dump.rdb
 staticfiles/
 insta_service/settings/dev.py
 requirements/dev.txt
+
+# insta accs
+ig_accs_settings/

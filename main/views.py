@@ -76,7 +76,6 @@ class CreateTaskView(LoginRequiredMixin, CreateView):
 
     # потом надо как то переделать
     def get_success_url(self):
-        print(self.request.POST)
         if 'subs' in self.request.POST['form_type']:
             parse.delay(self.object.instagram_users, self.object.quantity_users, self.object.pk)
         # elif 'likes' in self.request.POST['form_type']:

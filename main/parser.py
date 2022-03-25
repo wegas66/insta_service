@@ -46,7 +46,7 @@ class Parser:
         for user in self.users:
             try:
                 user_id = self._bot.user_id_from_username(user)
-                self.followers += self._bot.user_followers(user_id, self.quantity)
+                self.followers += self._bot.user_followers(user_id=user_id, amount=self.quantity)
             except Exception as e:
                 print(e)
                 continue

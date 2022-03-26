@@ -34,7 +34,6 @@ class CreateTaskView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('main_app:tasks')
 
     def post(self, request, *args, **kwargs):
-
         if 'subs' in request.POST['form_type']:
             form = self.form_class(request.POST)
         elif 'likes' in request.POST['form_type']:
@@ -76,10 +75,7 @@ class CreateTaskView(LoginRequiredMixin, CreateView):
 
     # потом надо как то переделать
     def get_success_url(self):
-        if 'subs' in self.request.POST['form_type']:
-            parse.delay(self.object.instagram_users, self.object.quantity_users, self.object.pk)
-        # elif 'likes' in self.request.POST['form_type']:
-        #     parse.delay(self.object.instagram_user, self.object.quantity_posts, self.object.quantity_users, self.object.pk)
+        parse.delay(self.object.pk)
         return super().get_success_url()
 
 

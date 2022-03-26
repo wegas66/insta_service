@@ -6,18 +6,18 @@
 			<div class="form-group">
 				<label>Уточните данные для сбора</label>
 				<div class="chiller_cb" style="text-align: left;">
-					<input class="checkbox__input" id="by_subscribers" type="checkbox">
-					<label for="by_subscribers" class="checkbox__label">Собирать подписчиков</label>
+					<label class="label" for="id_task_type">Тип задачи:</label>
+					<select name="task_type" id="id_task_type">
+					  <option value="FR" selected="">Собирать подписчиков</option>
+					  <option value="FG">Собирать подписки</option>
+					</select>
+					<div>
+						<label class="label">Количество:</label>
+						<input type="number" name="quantity_users" step="1">
+						<input type="hidden" name="form_type" value="subs">
+					</div>
 				</div>
-				<div class="chiller_cb" style="text-align: left;">
-					<input class="checkbox__input" id="by_sub" type="checkbox">
-					<label for="by_sub" class="checkbox__label">Собирать подписки</label>
-				</div>
-			<div>
-				<label class="checkbox__label">Количество:</label>
-				<input type="number" name="quantity_users" step="1">
-				<input type="hidden" name="form_type" value="subs">
-			</div>
+
 			</div>
 		</div>
 		<div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">

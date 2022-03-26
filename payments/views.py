@@ -21,3 +21,6 @@ class CreateInvoiceView(LoginRequiredMixin, CreateView):
 
 
 
+def payment_success(request):
+    if request.user.is_anonymous and request.method == "POST":
+        print(request.POST)

@@ -21,16 +21,22 @@ class Task(PolymorphicModel):
 
 
 class TaskParseSubscribers(Task):
+    FOLLOWERS = 'FR'
+    FOLLOWING = 'FG'
+    TYPE_CHOICES = [
+        (FOLLOWERS, 'Followers'),
+        (FOLLOWING, 'Following'),
+    ]
     instagram_users = models.TextField()
     quantity_users = models.PositiveIntegerField(default=1)
+    task_type = models.CharField(max_length=2, choices=TYPE_CHOICES, default=FOLLOWERS)
 
     def total_sum(self):
         return len(self.instagram_users.split(',')) * self.quantity_users
 
 
 class TaskParseLikes(Task):
-    instagram_user = models.TextField()
-    quantity_posts = models.PositiveIntegerField(default=1)
+    posts = models.TextField()
     quantity_users = models.PositiveIntegerField(default=1)
 
     def total_sum(self):

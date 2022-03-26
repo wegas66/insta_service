@@ -28,12 +28,9 @@ class InstagramAccount:
 class Parser:
     IG_CREDENTIAL_PATH = './ig_accs_settings/'
 
-    def __init__(self, users, quantity, account):
-        self.users = users.replace(' ', '').split(',')
-        self.quantity = quantity
-        self.account = account
+    def __init__(self, account):
         self._bot = Client()
-        self.followers = []
+        self.account = account
         if os.path.exists(self.IG_CREDENTIAL_PATH + self.account.username + '.json'):
             self._bot.load_settings(self.IG_CREDENTIAL_PATH + self.account.username + '.json')
             self._bot.login(username=self.account.username, password=self.account.password)
@@ -41,16 +38,30 @@ class Parser:
             self._bot.login(username=self.account.username, password=self.account.password)
             self._bot.dump_settings(self.IG_CREDENTIAL_PATH + self.account.username + '.json')
 
+        self.parsed_accounts = []
 
-    def parse_followers(self):
-        for user in self.users:
+    def parse_followers_or_following(self, users, quantity, task_type):
+        parser_ids = []
+        for user in users:
             try:
                 user_id = self._bot.user_id_from_username(user)
-                self.followers += self._bot.user_followers(user_id=user_id, amount=self.quantity)
+                if task_type == 'FR':
+                    parser_ids += self._bot.user_followers(user_id=user_id, amount=quantity)
+                elif task_type == 'FG':
+                    parser_ids += self._bot.user_following(user_id=user_id, amount=quantity)
             except Exception as e:
                 print(e)
                 continue
-        return self.followers
+        for user_id in parser_ids:
+            try:
+                self.parsed_accounts.append(self._bot.username_from_user_id(user_id))
+            except Exception as e:
+                print(e)
+                continue
+        return self.parsed_accounts
+
+    def parse_likes(self, posts, q_users):
+        return 'data'
 
 
 class SaveTaskResult:
@@ -62,18 +73,23 @@ class SaveTaskResult:
     def save_result(self):
         with open(f'task_{self.task_pk}.txt', 'a+') as f:
             f.write('\n'.join(self.result))
-            task = Task(pk=self.task_pk)
+            task = self.model(pk=self.task_pk)
             task.result = File(f)
             task.completed = True
             task.save()
 
 
-def run_parser(users, quantity, task_pk):
+def run_parser(task_pk):
+    task = Task.objects.get(pk=task_pk)
     account = InstagramAccount()
     account.in_use()
-    parser = Parser(users, quantity, account)
     try:
-        parsed_data = parser.parse_followers()
+        parser = Parser(account)
+        if 'парсинг подписчиков' in task.__str__():
+            users = task.instagram_users.replace(' ', '').split(',')
+            parsed_data = parser.parse_followers_or_following(users, task.quantity_users, task.task_type)
+        elif 'парсинг лайков' in task.__str__():
+            parsed_data = parser.parse_likes(task.posts, task.quantity_users)
         task_result = SaveTaskResult(parsed_data, task_pk)
         task_result.save_result()
     except Exception as e:

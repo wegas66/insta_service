@@ -3,7 +3,6 @@
 		<br><br>
 		<div class="block-account-collection content_stage-pl-pr"><p class="block-account-collection-p_top">Выгрузка
 			собранной базы</p>
-			<p>{{object.name}}{{object.pk}}</p>
 <p>Дата создания: {{object.timestamp}}</p>
 <p>Выполнено: {%if object.completed%}Да{%else%}Нет{%endif%}</p>
 
@@ -13,8 +12,7 @@
 
 {%elif 'парсинг лайков' in object.name%}
 
-<p>Пользователь Instagram для сбора: {{object.instagram_user}}</p>
-<p>Количество постов для сбора лайков (с последнего): {{object.quantity_posts}}</p>
+<p>Посты Instagram для сбора: {{object.posts}}</p>
 
 {%endif%}
 

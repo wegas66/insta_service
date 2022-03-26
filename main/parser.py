@@ -41,27 +41,31 @@ class Parser:
         self.parsed_accounts = []
 
     def parse_followers_or_following(self, users, quantity, task_type):
-        parser_ids = []
         for user in users:
             try:
                 user_id = self._bot.user_id_from_username(user)
                 if task_type == 'FR':
-                    parser_ids += self._bot.user_followers(user_id=user_id, amount=quantity)
+                    parsed_users = self._bot.user_followers(user_id=user_id, amount=quantity)
                 elif task_type == 'FG':
-                    parser_ids += self._bot.user_following(user_id=user_id, amount=quantity)
+                    parsed_users = self._bot.user_following(user_id=user_id, amount=quantity)
             except Exception as e:
                 print(e)
                 continue
-        for user_id in parser_ids:
+            parsed_users = [user.username for user in parsed_users.values()]
+            self.parsed_accounts += parsed_users
+        return self.parsed_accounts
+
+    def parse_likes(self, posts, q_users):
+        for post in posts:
             try:
-                self.parsed_accounts.append(self._bot.username_from_user_id(user_id))
+                media_pk = self._bot.media_pk_from_url(post)
+                users = self._bot.media_likers(media_pk)
+                users = [user.username for user in users]
+                self.parsed_accounts += users
             except Exception as e:
                 print(e)
                 continue
         return self.parsed_accounts
-
-    def parse_likes(self, posts, q_users):
-        return 'data'
 
 
 class SaveTaskResult:

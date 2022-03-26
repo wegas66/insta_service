@@ -93,7 +93,8 @@ def run_parser(task_pk):
             users = task.instagram_users.replace(' ', '').split(',')
             parsed_data = parser.parse_followers_or_following(users, task.quantity_users, task.task_type)
         elif 'парсинг лайков' in task.__str__():
-            parsed_data = parser.parse_likes(task.posts, task.quantity_users)
+            posts = task.posts.split('\n')
+            parsed_data = parser.parse_likes(posts, task.quantity_users)
         task_result = SaveTaskResult(parsed_data, task_pk)
         task_result.save_result()
     except Exception as e:

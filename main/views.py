@@ -60,7 +60,7 @@ class CreateTaskView(LoginRequiredMixin, CreateView):
                 return render(request=self.request, template_name='payments/not_enough_balance.html')
 
         elif 'likes' in self.request.POST['form_type']:
-            total_sum = TaskParseLikes(quantity_posts=form.instance.quantity_posts, quantity_users=form.instance.quantity_users).total_sum()
+            total_sum = TaskParseLikes(posts=form.instance.posts, quantity_users=form.instance.quantity_users).total_sum()
             if payment_acc.balance >= total_sum:  # хватает ли средств на балансе
                 payment = Transaction(user=self.request.user.paymentaccount, reason='SUB', amount=form.instance.quantity_users)  # создание транзакции
                 payment.save()

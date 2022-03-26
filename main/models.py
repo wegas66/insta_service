@@ -40,7 +40,7 @@ class TaskParseLikes(Task):
     quantity_users = models.PositiveIntegerField(default=1)
 
     def total_sum(self):
-        return self.quantity_posts * self.quantity_users
+        return len(self.posts.split('\n')) * self.quantity_users
 
 
 class IGAccount(models.Model):

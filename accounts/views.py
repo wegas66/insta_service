@@ -77,7 +77,7 @@ def signup_user(request):
                 password = user_data['password1']
                 user = signup_form.save(commit=False)
                 user.set_password(password)
-                user.is_active = False
+                user.is_active = True
                 user.activate_token = str(uuid.uuid4())
                 user.save()
                 # confirm = confirm_email(user.email, user.activate_token)

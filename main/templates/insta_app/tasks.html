@@ -1,20 +1,71 @@
-{%extends 'insta_app/base.html'%}
-
+{% extends 'insta_app/base.html' %}{% load static %}
+{% block title %} {{ title }} {% endblock %}
+{% block extra_head %}
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="{% static 'insta_app/css/progress.css' %}">
+	<link rel="stylesheet" href="{% static 'insta_app/css/dark/dark.css' %}">
+	<link rel="stylesheet" href="{% static 'insta_app/css/switch.css' %}">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css" integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+{% endblock %}
 {% block body %}
-<h1>Задачи</h1>
-<table>
-  <tr>
-    <th>Задача</th>
-    <th>Завершено</th>
-    <th>Дата</th>
-  </tr>
-  {%for task in tasks%}
-  <tr>
-    <td><a href="{%url 'main_app:task_result' task.pk%}">{{task}}</a></td>
-    <td>{%if task.completed%}Да{%else%}Нет{%endif%}</td>
-    <td>{{task.timestamp}}</td>
-  </tr>
-  {%endfor%}
-</table>
-<a href="{%url 'main_app:parser'%}">Создать новую задачу</a>
-{%endblock%}
+<body style="background: white; font-size: 14px; line-height: 1.42857143; font-family: 'Rubik', 'Open Sans', sans-serif">
+	<div style="width: 100%;">
+		{% include 'accounts/include/messages/flash_messages.html' %}
+	</div>
+	{% include 'insta_app/include/parser_header.html' %}
+	<br><br>
+	<div class="container" style="border-radius: 10px; padding: 25px 20px; margin-bottom: 40px;">
+		{% include 'insta_app/include/user_container.html' %}
+	</div>
+	<div class="container">
+
+	</div>
+		<div class="container container-center col-sm-12 col-12" style="text-align: center;">
+			<div class="col-xs-10 col-sm-12 col-md-10 "
+				 style="display: inline-block; border: 1px solid #808080; padding: 10px; border-radius: 10px;">
+				<br>
+
+
+                <div class="container container_center" style="color:black;">
+                  <div class="content_stage"><h3 class="content_stage-title">Задачи</h3>
+                      <br>
+                    <div style="margin-left: 200px;">
+                        <table>
+                          <tr>
+                            <th>Задача</th>
+                            <th>Завершено</th>
+                            <th>Дата</th>
+                          </tr>
+                          {%for task in tasks%}
+                          <tr>
+                            <td><a href="{%url 'main_app:task_result' task.pk%}">{{task}}</a></td>
+                            <td>{%if task.completed%}Да{%else%}Нет{%endif%}</td>
+                            <td>{{task.timestamp}}</td>
+                          </tr>
+                          {%endfor%}
+                        </table>
+                      </div>
+                    <br>
+                    <a href="{%url 'main_app:parser'%}">Создать новую задачу</a>
+                  </div>
+              </div>
+			</div>
+		</div>
+	<br><br><br>
+	{% include 'insta_app/include/dark_footer.html' %}
+	<script
+	  type="text/javascript"
+	  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.js"
+	></script>
+	<script src="{% static 'insta_app/js/jquery.js' %}"></script>
+	<script src="{% static 'insta_app/js/orders.js' %}"></script>
+</body>
+{% endblock %}
+
+

@@ -6,7 +6,7 @@ User = get_user_model()
 
 class PaymentAccount(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    balance = models.IntegerField(default=0)
+    balance = models.IntegerField(default=300)
 
     def change_balance(self, amount):
         self.balance += amount

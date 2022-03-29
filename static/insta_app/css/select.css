@@ -1,0 +1,13 @@
+.select {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.select select {
+    background: rgb(0, 148, 255);
+    color: white;
+    border: 0;
+    font-family: inherit;
+    border-radius: 3px;
+    padding: 5px;
+}

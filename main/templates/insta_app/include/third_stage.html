@@ -3,20 +3,20 @@
 		<br><br>
 		<div class="block-account-collection content_stage-pl-pr"><p class="block-account-collection-p_top">Выгрузка
 			собранной базы</p>
-<p>Дата создания: {{object.timestamp}}</p>
-<p>Выполнено: {%if object.completed%}Да{%else%}Нет{%endif%}</p>
+			<p>Дата создания: {{object.timestamp}}</p>
+			<p>Выполнено: {%if object.completed%}Да{%else%}Нет{%endif%}</p>
 
-{%if 'парсинг подписчиков' in object.name%}
+			{%if 'парсинг подписчиков' in object.name%}
 
-<p>Пользователи Instagram для сбора: {{object.instagram_users}}</p>
+			<p>Пользователи Instagram для сбора: {{object.instagram_users}}</p>
 
-{%elif 'парсинг лайков' in object.name%}
+			{%elif 'парсинг лайков' in object.name%}
 
-<p>Посты Instagram для сбора: {{object.posts}}</p>
+			<p>Посты Instagram для сбора: {{object.posts}}</p>
 
-{%endif%}
+			{%endif%}
 
-<p>Количество собранных пользователей с одного аккаунта: {{object.quantity_users}}</p>
+			<p>Количество собранных пользователей с одного аккаунта: {{object.quantity_users}}</p>
 
 			<a href="{% url 'main_app:parser' %}" class="btn btn_ml-mr btn-primary">Начать новый сбор</a>
 			<a href="{{ object.result.url }}" type="button" class="btn btn_ml-mr btn-primary ">Сохранить</a>

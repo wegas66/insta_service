@@ -1,0 +1,20 @@
+.alert {
+  padding: 20px;
+  color: black;
+  margin-bottom: 15px;
+}
+
+.alert-error {
+  background-color: #f44336; /* Red */
+  color: white;
+}
+
+.alert-success {
+  background-color: #04AA6D; /* Red */
+  color: white;
+}
+
+.alert-info {
+  background-color: #2196F3; /* Red */
+  color: white;
+}

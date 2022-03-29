@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from accounts.email_senders import confirm_email
 from accounts.forms import LoginForm, SignUpForm, UserUpdateForm
+from payments.models import PaymentAccount
 
 User = get_user_model()
 
@@ -80,6 +81,9 @@ def signup_user(request):
                 user.is_active = True
                 user.activate_token = str(uuid.uuid4())
                 user.save()
+                payment_acc = PaymentAccount(user=user, balance=300)
+                payment_acc.save()
+
                 # confirm = confirm_email(user.email, user.activate_token)
                 # if not confirm:
                 #     messages.error(request, 'Сообщение не отправлено! попробуйте снова!')

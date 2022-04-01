@@ -80,6 +80,7 @@ class SaveTaskResult:
             task = self.model(pk=self.task_pk)
             task.result = File(f)
             task.completed = True
+            task.timestamp = datetime.datetime.now().date()
             task.save()
 
 

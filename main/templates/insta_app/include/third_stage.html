@@ -19,7 +19,11 @@
 			<p>Количество собранных пользователей с одного аккаунта: {{object.quantity_users}}</p>
 
 			<a href="{% url 'main_app:parser' %}" class="btn btn_ml-mr btn-primary">Начать новый сбор</a>
+			{% if object.result %}
 			<a href="{{ object.result.url }}" type="button" class="btn btn_ml-mr btn-primary ">Сохранить</a>
+			{% else %}
+			<button disabled class="btn btn_ml-mr btn-primary ">Сохранить</button>
+			{% endif %}
 		</div>
 	</div>
 </div>

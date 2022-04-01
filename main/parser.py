@@ -77,10 +77,9 @@ class SaveTaskResult:
     def save_result(self):
         with open(f'task_{self.task_pk}.txt', 'a+') as f:
             f.write('\n'.join(self.result))
-            task = self.model(pk=self.task_pk)
+            task = self.model.objects.get(pk=self.task_pk)
             task.result = File(f)
             task.completed = True
-            task.timestamp = datetime.datetime.now().date()
             task.save()
 
 

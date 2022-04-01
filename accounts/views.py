@@ -83,7 +83,6 @@ def signup_user(request):
                 user.save()
                 payment_acc = PaymentAccount(user=user, balance=300)
                 payment_acc.save()
-
                 # confirm = confirm_email(user.email, user.activate_token)
                 # if not confirm:
                 #     messages.error(request, 'Сообщение не отправлено! попробуйте снова!')

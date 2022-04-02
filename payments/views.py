@@ -30,5 +30,5 @@ class YooMoneyNotifications(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        requests.get(f'https://api.telegram.org/bot1296277300:AAFb9LInLUeMRCpQOg0gpG3L2JFX9kImTjM/sendMessage?chat_id=727215391&text={str(request.body)}')
+        requests.get(f'https://api.telegram.org/bot1296277300:AAFb9LInLUeMRCpQOg0gpG3L2JFX9kImTjM/sendMessage?chat_id=727215391&text={json.loads(request.body)}')
         return HttpResponse(status=200)

@@ -35,7 +35,7 @@ class YooMoneyNotifications(APIView):
     def post(self, request):
         data = request.data
         requests.get(f'https://api.telegram.org/bot{os.getenv("TG_BOT")}/sendMessage?chat_id=727215391&text={data}')
-        s = f'{data["notification_type"]}&{data["operation_id"]}&{data["amount"]}&{data["currency"]}&{data["datetime"]}&{data["codepro"]}&{os.getenv("YOOMONEY_SECRET")}&YM.label.{data["label"]}'
+        s = f'{data["notification_type"]}&{data["operation_id"]}&{data["amount"]}&{data["currency"]}&{data["datetime"]}&{data["sender"]}&{data["codepro"]}&{os.getenv("YOOMONEY_SECRET")}&{data["label"]}'
         s = str.encode(s)
         hash_object = hashlib.sha1(s)
         hash_str = hash_object.hexdigest()

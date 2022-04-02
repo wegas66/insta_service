@@ -48,7 +48,7 @@ class YooMoneyNotifications(APIView):
         transaction = Transaction(user=invoice.user, reason='ADD', amount=invoice.amount)  # создаем транзакцию
         transaction.save()
 
-        invoice.user.change_balance(invoice.amount)
+        invoice.user.change_balance(round(invoice.amount)*100)
         invoice.user.save()
 
         invoice.transaction = transaction

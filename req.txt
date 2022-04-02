@@ -40,3 +40,4 @@ vine==5.0.0
 wcwidth==0.2.5
 wrapt==1.14.0
 YooMoney==0.1.0
+djangorestframework==3.13.1

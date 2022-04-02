@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from .forms import CreateInvoiceForm
 from .ymoney import get_operation_url, is_operation_success
@@ -5,7 +6,9 @@ import uuid
 from .tasks import check_payment_task
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.base import TemplateView
-
+from rest_framework.views import APIView
+from rest_framework.permissions import AllowAny
+import json
 
 class CreateInvoiceView(LoginRequiredMixin, CreateView):
     form_class = CreateInvoiceForm
@@ -21,6 +24,11 @@ class CreateInvoiceView(LoginRequiredMixin, CreateView):
 
 
 
-def payment_success(request):
-    if request.method == "POST":
-        print(request.POST)
+
+class YooMoneyNotifications(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        event_json = json.loads(request.body)
+        print(event_json)
+        return HttpResponse(status=200)

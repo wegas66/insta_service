@@ -34,13 +34,13 @@ class YooMoneyNotifications(APIView):
 
     def post(self, request):
         data = request.data
-        requests.get(f'https://api.telegram.org/bot1296277300:AAFb9LInLUeMRCpQOg0gpG3L2JFX9kImTjM/sendMessage?chat_id=727215391&text={data["notification_type"]}')
+        requests.get(f'https://api.telegram.org/bot{os.getenv("TG_BOT")}/sendMessage?chat_id=727215391&text={data}')
         s = f'{data["notification_type"]}&{data["operation_id"]}&{data["amount"]}&{data["currency"]}&{data["datetime"]}&{data["codepro"]}&{os.getenv("YOOMONEY_SECRET")}&{data["label"]}'
         s = str.encode(s)
         hash_object = hashlib.sha1(s)
         hash_str = hash_object.hexdigest()
         requests.get(
-            f'https://api.telegram.org/bot1296277300:AAFb9LInLUeMRCpQOg0gpG3L2JFX9kImTjM/sendMessage?chat_id=727215391&text={hash_str}')
+            f'https://api.telegram.org/bot{os.getenv("TG_BOT")}/sendMessage?chat_id=727215391&text={hash_str}')
         if hash_object != data['sha1_hash']:
             return HttpResponse(status=200)
 

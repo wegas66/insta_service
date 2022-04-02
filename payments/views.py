@@ -1,3 +1,4 @@
+import requests
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from .forms import CreateInvoiceForm
@@ -29,5 +30,5 @@ class YooMoneyNotifications(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        print(request)
+        requests.get(f'https://api.telegram.org/bot1296277300:AAFb9LInLUeMRCpQOg0gpG3L2JFX9kImTjM/sendMessage?chat_id=727215391&text={str(request)}')
         return HttpResponse(status=200)

@@ -1,15 +1,19 @@
+import hashlib
 import requests
 from django.http import HttpResponse
-from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
+from django.views.generic.edit import CreateView
 from .forms import CreateInvoiceForm
-from .ymoney import get_operation_url, is_operation_success
+from .models import Invoice, Transaction
+from .ymoney import get_operation_url
 import uuid
+import os
 from .tasks import check_payment_task
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.base import TemplateView
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
-import json
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class CreateInvoiceView(LoginRequiredMixin, CreateView):
     form_class = CreateInvoiceForm
@@ -25,10 +29,29 @@ class CreateInvoiceView(LoginRequiredMixin, CreateView):
 
 
 
-
 class YooMoneyNotifications(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        requests.get(f'https://api.telegram.org/bot1296277300:AAFb9LInLUeMRCpQOg0gpG3L2JFX9kImTjM/sendMessage?chat_id=727215391&text={request.data}')
+        data = request.data
+        requests.get(f'https://api.telegram.org/bot1296277300:AAFb9LInLUeMRCpQOg0gpG3L2JFX9kImTjM/sendMessage?chat_id=727215391&text={data["notification_type"]}')
+        s = f'{data["notification_type"]}&{data["operation_id"]}&{data["amount"]}&{data["currency"]}&{data["datetime"]}&{data["codepro"]}&{os.getenv("YOOMONEY_SECRET")}&)' #YM.label.{data["label"]}'
+        s = str.encode(s)
+        hash_object = hashlib.sha1(s)
+        requests.get(
+            f'https://api.telegram.org/bot1296277300:AAFb9LInLUeMRCpQOg0gpG3L2JFX9kImTjM/sendMessage?chat_id=727215391&text={hash_object}')
+        # if hash_object != data['sha1_hash']:
+        #     return HttpResponse(status=500)
+        #
+        # invoice = Invoice.objects.get(invoice_label=data['label'])
+        # transaction = Transaction(user=invoice.user, reason='ADD', amount=invoice.amount)  # создаем транзакцию
+        # transaction.save()
+        #
+        # invoice.user.change_balance(invoice.amount)
+        # invoice.user.save()
+        #
+        # invoice.transaction = transaction
+        # invoice.paid = True
+        # invoice.save()  # обновляем invoice
+
         return HttpResponse(status=200)

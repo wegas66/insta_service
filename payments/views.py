@@ -30,4 +30,5 @@ class YooMoneyNotifications(APIView):
 
     def post(self, request):
         print(request)
+
         return HttpResponse(status=200)

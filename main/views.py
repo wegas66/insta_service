@@ -10,13 +10,9 @@ from payments.models import Transaction
 from .tasks import parse
 
 
-
 class HomeView(TemplateView):
     template_name = 'insta_app/home.html'
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     return context
 
 class TasksView(LoginRequiredMixin, TemplateView):
     template_name = 'insta_app/tasks.html'
@@ -48,10 +44,10 @@ class CreateTaskView(LoginRequiredMixin, CreateView):
         payment_acc = self.request.user.paymentaccount
         if 'subs' in self.request.POST['form_type']:
             total_sum = TaskParseSubscribers(instagram_users=form.instance.instagram_users, quantity_users=form.instance.quantity_users).total_sum()
-            if payment_acc.balance >= total_sum: #хватает ли средств на балансе
+            if payment_acc.balance >= total_sum:  # is enough balance
                 payment = Transaction(user=self.request.user.paymentaccount, reason='SUB', amount=form.instance.quantity_users) #создание транзакции
                 payment.save()
-                payment_acc.balance -= total_sum #изменение баланса
+                payment_acc.balance -= total_sum  # change balance
                 payment_acc.save()
                 form.instance.user = self.request.user
                 form.instance.name = f'Задача "парсинг подписчиков" №'
@@ -61,10 +57,10 @@ class CreateTaskView(LoginRequiredMixin, CreateView):
 
         elif 'likes' in self.request.POST['form_type']:
             total_sum = TaskParseLikes(posts=form.instance.posts, quantity_users=form.instance.quantity_users).total_sum()
-            if payment_acc.balance >= total_sum:  # хватает ли средств на балансе
+            if payment_acc.balance >= total_sum:  # is enough balance
                 payment = Transaction(user=self.request.user.paymentaccount, reason='SUB', amount=form.instance.quantity_users)  # создание транзакции
                 payment.save()
-                payment_acc.balance -= total_sum  # изменение баланса
+                payment_acc.balance -= total_sum  # change balance
                 payment_acc.save()
                 form.instance.user = self.request.user
                 form.instance.name = f'Задача "парсинг лайков" №'
@@ -73,7 +69,7 @@ class CreateTaskView(LoginRequiredMixin, CreateView):
 
         return super().form_valid(form)
 
-    # потом надо как то переделать
+    # redo smtime later
     def get_success_url(self):
         parse.delay(self.object.pk)
         return super().get_success_url()

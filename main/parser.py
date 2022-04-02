@@ -55,7 +55,7 @@ class Parser:
             self.parsed_accounts += parsed_users
         return self.parsed_accounts
 
-    def parse_likes(self, posts, q_users):
+    def parse_likes(self, posts):
         for post in posts:
             try:
                 media_pk = self._bot.media_pk_from_url(post)
@@ -90,10 +90,10 @@ def run_parser(task_pk):
     try:
         parser = Parser(account)
         if 'парсинг подписчиков' in task.__str__():
-            users = task.instagram_users.replace(' ', '').split(',')
+            users = task.instagram_users.replace(' ', '').replace(',', '').split('\n')
             parsed_data = parser.parse_followers_or_following(users, task.quantity_users, task.task_type)
         elif 'парсинг лайков' in task.__str__():
-            posts = task.posts.split('\n')
+            posts = task.posts.replace(' ', '').replace(',', '').split('\n')
             parsed_data = parser.parse_likes(posts, task.quantity_users)
         task_result = SaveTaskResult(parsed_data, task_pk)
         task_result.save_result()

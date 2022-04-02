@@ -24,7 +24,7 @@ class CreateInvoiceView(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user.paymentaccount
         form.instance.invoice_label = str(label)
         self.success_url = get_operation_url(form.instance.amount, str(label))
-        check_payment_task.delay(label)
+        # check_payment_task.delay(label)
         return super().form_valid(form)
 
 

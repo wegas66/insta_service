@@ -90,7 +90,7 @@ def run_parser(task_pk):
     try:
         parser = Parser(account)
         if 'парсинг подписчиков' in task.__str__():
-            users = task.instagram_users.replace(' ', '').replace(',', '').split('\n')
+            users = task.instagram_users.replace(' ', '').replace(',', '').replace('\r', '').split('\n')
             parsed_data = parser.parse_followers_or_following(users, task.quantity_users, task.task_type)
         elif 'парсинг лайков' in task.__str__():
             posts = task.posts.replace(' ', '').replace(',', '').split('\n')
@@ -99,6 +99,7 @@ def run_parser(task_pk):
         task_result.save_result()
     except Exception as e:
         print(e)
+        return False
     finally:
         account.not_in_use()
     return True
